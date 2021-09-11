@@ -1,0 +1,256 @@
+.body
+{
+    background-color: black !important;
+}
+.sidebar--link:hover
+{
+    color:  White !important;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 3px;
+    margin-bottom: 5px;
+}
+.sidebar--link a:hover
+{
+    padding: 10px;
+
+    margin-bottom: 5px;
+    background: mediumpurple;
+    color:white;
+    text-decoration: none !important;
+}
+#footer
+{
+    background-color:white;
+   overflow: hidden;
+    margin-bottom: 0;
+    padding-bottom: 0;
+    text-align: center;
+    color: white;
+}
+#footer p
+{
+    margin: 0;
+    padding: 0;
+    color: black;
+}
+#disHeadline
+{
+    color: indianred;
+    text-align: center;
+    border: 1px solid #57b846;
+    background-color: #86cfda;
+
+}
+.tableName
+{
+    background-color: #e65061;
+    height:50px;
+    font-weight: bolder;
+    text-align: center;
+}
+.tableName p
+{
+    display: inline-block;
+    font-size: larger;
+    text-align: center;
+    padding-top: 15px;
+
+}
+.search
+{
+    float: left;
+    padding-top: 15px;
+    padding-left: 10px;
+    display: inline-block;
+    
+
+}
+.vl {
+    border-left: 6px solid green;
+    height: 15px;
+}
+/*########CSSFOR chart  and DETAILS######*/
+.budgetchart
+{
+   
+
+}
+.detailsforbudgetnotchart
+{
+    background-color: #ed969e;
+    color:#23272b;
+    float: left;
+
+
+}
+.detailsforbudgetnotchart p,h4
+{
+    border-bottom: solid 1px cornsilk;
+}
+
+
+/*########CSS FOR CHART and DETAILS# ENDDD######*/
+tr:nth-child(even){background-color: #f2f2f2}
+
+/*########CSS FOR BUDGET FORM######*/
+.form-head
+{
+    background-color:  #e65061;
+    padding-bottom: 10px;
+}
+.form-head p
+{
+    display: inline-block;
+    color: white;
+}
+.formforbudget
+{
+    background-color:  #e65061;
+    align-content: center;
+}
+.form-content
+{
+    padding-bottom: 10px;
+    padding-left: 29px;
+
+}
+.formforbudget h3
+{
+    text-align: center;
+    margin: auto;
+    color: white;
+    font-weight: bold;
+    display: inline-block;
+    padding-left: 35%;
+}
+.formforbudget input
+{
+    border:1px solid;
+    background-color: white;
+
+}
+.formforbudget .form-content .form-group
+{
+
+
+
+}
+#budgetsub
+{
+    color: black;
+}
+
+#budgetsub:hover
+{
+    background-color: darkslateblue;
+    color: white;
+}
+.searchforbudger
+{
+    display: block;
+    float: right;
+    padding-top: 15px;
+    padding-left: 10px;
+    background-color: #17a2b8;
+}
+.searchforbudger .btn
+{
+    margin: auto;
+    float: left;
+}
+.searchforbudger input
+{
+    padding-left: 50px;
+    float: right;
+}
+/*########CSS FOR BUDGET FORM ENDDD######*/
+
+
+/*###############CSS for register ADMIN#############*/
+.adminRegister
+{
+    width: 75%;
+    padding-left: 25px;
+    border:solid 1px black;
+    background-color: #3a3e41;
+    color: white;
+}
+.adminRegister label
+{
+
+display: inline-block;
+}
+.adminRegister .input
+{
+  border: solid #8fd19e 1px;
+
+}
+.btnreg
+{
+
+}
+
+/*form for Expense CSS start*/
+.formexpense input
+{
+    margin: 0;
+    padding: 0;
+}
+.formexpense label
+{
+    margin: 0;
+    padding: 0;
+}
+#expenseSub
+{
+    padding-left: 10px;
+    text-align: center;
+    align-content: center;
+    padding-right: 10px;
+}
+.btnexpense
+{
+
+}
+
+/*form for Expense CSS End*/
+/*adminpanelCSS*/
+.yourInfo
+{
+    background-color: #9fcdff !important;
+    padding-top: 25px;
+    border:1px solid black;
+    color: white;
+    font-weight: bold;
+}
+.yourInfo p
+#yourInfo
+{
+    background-color: #9fcdff !important;
+    padding-top: 25px !important;
+    border:1px solid black !important;
+}
+/*addemployeecss*/
+
+.navbarmain .nav-link:hover
+{
+    background-color: #6c757d !important;
+    display: block !important;
+    border-bottom:1px solid #000 !important;
+}
+#catsub
+{
+    margin-top: 8px;
+}
+
+.blinking{
+    animation:blinkingText 1.2s infinite;
+}
+@keyframes blinkingText{
+    0%{     color: #000;    }
+    49%{    color: #000; }
+    60%{    color: transparent; }
+    99%{    color:transparent;  }
+    100%{   color: #000;    }
+}
