@@ -64,7 +64,7 @@ if (isset($_POST['name'])) {
 
                         </li>
                         <li><a href="index-1.html">Videos </a></li>
-                        <li><a href="index-3.html">Volunteer </a></li>
+                        <li><a href="index-3.html">Parents Portal </a></li>
                         <li class="current"><a href="index-4.php">Contacts</a></li>
                     </ul>
                 </nav>
@@ -117,6 +117,7 @@ if (isset($_POST['name'])) {
                             if (isset($_SESSION["success"])) {
 
                                 echo $_SESSION["success"];
+                                unset($_SESSION["success"]);
                             }
                             if (isset($_SESSION["error"])) {
                                 echo $_SESSION["error"];

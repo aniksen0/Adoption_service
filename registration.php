@@ -9,7 +9,7 @@ if(isset($_POST['pass']) == isset($_POST['pass2']))
         $folder= "parent/img/";
         $filename= $_FILES["file1"]["name"];
         $tempname= $_FILES["file1"]["tmp_name"];
-        $filenamenew=$folder.$filename;
+        $filenamenew=$filename;
         move_uploaded_file($tempname,$filenamenew);
 
         $id_sql = "SELECT id FROM users WHERE id=(SELECT max(id) FROM users);";
@@ -46,7 +46,11 @@ if(isset($_POST['pass']) == isset($_POST['pass2']))
             ':pass'=>htmlentities($_POST['pass'])
         ));
 
-
+    //session data
+        $_SESSION['new_id']=$last_data+1;
+        $_SESSION['new_name']=$_POST['name'];
+        header("Location:welcome.php");
+        return;
     }
 }
 else

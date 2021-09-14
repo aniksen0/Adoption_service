@@ -10,7 +10,7 @@ if ( isset($_POST['id']) && isset($_POST['pass'])  ) {
 //	$pw = hash('md5', $salt . $_POST['pass']);
 //	$check = 'ba71f8e7f3b18d6bcd642a90e641b85a';
 	echo("<p>Handling POST data...</p>\n");
-	$sql = "SELECT login.id,login.pass,users.name,users.image,users.role
+	$sql = "SELECT login.id,login.pass,users.name,users.image,users.role,users.email
                 from login join users
                 WHERE login.id= :id and login.id=users.id and login.pass=:pw;";
 
@@ -29,6 +29,7 @@ if ( isset($_POST['id']) && isset($_POST['pass'])  ) {
 	$_SESSION['img']=$row['image'];
 	$_SESSION['name']=$row['name'];
 	$_SESSION['id']=$row['id'];
+	$_SESSION['email']=$row['email'];
 
 	if ($count!=1)
 	{

@@ -1,116 +1,187 @@
 <?php
 session_start();
-echo $_SESSION['name'];
-echo "parent Portal";
+require_once "../connection.php";
+$id = $_SESSION["id"];
+$id_sql = "SELECT * FROM users WHERE id= $id";
+$data = $conn->query($id_sql);
+$rows = $data->fetchALL(PDO::FETCH_ASSOC);
 
 ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="stylesheet" href="css/font/css/all.min.css"crossorigin="anonymous">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <link rel="stylesheet" href="css/font/css/all.min.css" crossorigin="anonymous">
+    <link rel="stylesheeet" href="boot/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/mainSidebar.css">
+    <link rel="stylesheet" href="css/mainStyle.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/profile.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-  <link rel="stylesheeet" href="boot/css/bootstrap.min.css">
-  <link rel="stylesheet" href="css/mainSidebar.css" >
-  <link rel="stylesheet" href="css/mainStyle.css" >
-
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-
-  <title>Dashboard</title>
+    <title>Dashboard</title>
 </head>
 <body id="body">
 <div class="container1">
-  <nav class="navbar">
-    <div class="nav_icon" onclick="toggleSidebar()">
-      <i class="fa fa-bars" aria-hidden="true"></i>
-    </div>
+    <main>
+        <div class="container">
+            <div class="main-body">
+                <div class="row gutters-sm">
+                    <div class="col-md-4 mb-3">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="d-flex flex-column align-items-center text-center">
+                                    <img src="<?php echo "img/".$rows[0]['image']?>"alt="Admin" class="rounded-circle" width="150">
+                                    <div class="mt-3">
+                                        <h4><?php echo $rows[0]['name']?></h4>
+                                        <p class="text-secondary mb-1">Gender : <?php echo $rows[0]['gender'] ?></p>
+                                        <p class="text-muted font-size-sm">Address: <?php echo $rows[0]['contact_address'] ?></p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
-    <div class="navbar--right">
-      <img src="img/img-01.png" alt="mainlogo" id="farleft" height="50px" width="50px" />
-      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit"> <i class="fas fa-search"></i></button>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Full Name</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        <?php echo $rows[0]['name']?>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Email</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        <?php echo $rows[0]['email']?>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Phone</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        <?php echo $rows[0]['phone']?>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Permanent Address</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        <?php echo $rows[0]['permanent_address']?>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Account Creation Date</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        <?php echo $rows[0]['created_at']?>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Last Renew Date</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        <?php echo $rows[0]['last_renewed']?>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-3">
+                                        <h6 class="mb-0">Profession</h6>
+                                    </div>
+                                    <div class="col-sm-9 text-secondary">
+                                        <?php echo $rows[0]['profession']?>
+                                    </div>
+                                </div>
+                                <hr>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-
-      <a href="#">
-        <i class="fas fa-clock-o" aria-hidden="true"></i>
-      </a>
-      <a href="#">
-        <img width="30" src="img/avatar.png" alt="LoginPerson's img" />
-        <!-- <i class="fa fa-user-circle-o" aria-hidden="true"></i> -->
-      </a>
-    </div>
-  </nav>
-
-  <main>
-    
-  </main>
-
-  <div id="sidebar">
-    <div class="sidebar--title">
-      <div class="sidebar--img">
-        <img src="img/img-01.png" alt="logo" />
-        <h1>Parental Control</h1>
-
-      </div>
-      <i
-              onclick="closeSidebar()"
-              class="far fa-clock"
-              id="sidebarIcon"
-              aria-hidden="true"
-      ></i>
-    </div>
-    <p>Relief Section</p>
-    <div class="sidebar--menu">
-      <a href="index.php">
-        <div class="sidebar--link active_menu_link">
-          <i class="fa fa-home"></i>
-          Overview
+            </div>
         </div>
-      </a>
+    </main>
 
-      <h2>View</h2>
-      <a href="info.php">
-        <div class="sidebar--link ">
-          <i class="fa fa-user-secret" aria-hidden="true"></i>
-          Your Info
-        </div>
-      </a>
+    <div id="sidebar">
+        <div class="sidebar--title">
+            <div class="sidebar--img">
+                <img src="img/img-01.png" alt="logo"/>
+                <h1>Parental Control</h1>
 
-      <a href="registration_details.php">
-        <div class="sidebar--link">
-          <i class="fa fa-building-o"></i>
-          Registration Details
+            </div>
+            <i
+                onclick="closeSidebar()"
+                class="far fa-clock"
+                id="sidebarIcon"
+                aria-hidden="true"
+            ></i>
         </div>
-      </a>
-      <div class="sidebar--link ">
-        <i class="fa fa-wrench"></i>
-        <a href="">Payment</a>
-      </div>
-      <div class="sidebar--link active">
-        <i class="fa fa-archive"></i>
-        <a href="payment_status.php">Payment Status</a>
-      </div>
-      <div class="sidebar--link">
-        <i class="fa fa-handshake-o"></i>
-        <a href="renew_status.php">Renew Status</a>
-      </div>
-      <h2>Update</h2>
-      <div class="sidebar--link">
-        <i class="fa fa-sign-out"></i>
-        <a href="update_renew_status.php">Update Renew Status</a>
-      </div>
-      <div class="sidebar--logout">
-        <i class="fa fa-power-off"></i>
-        <a href="logout.php">Log out</a>
-      </div>
+        <p>Relief Section</p>
+        <div class="sidebar--menu">
+            <a href="index.php">
+                <div class="sidebar--link active_menu_link">
+                    <i class="fa fa-home"></i>
+                    Overview
+                </div>
+            </a>
+
+            <h2>View</h2>
+            <a href="info.php">
+                <div class="sidebar--link ">
+                    <i class="fa fa-user-secret" aria-hidden="true"></i>
+                    Update Your Info
+                </div>
+            </a>
+
+            <a href="registration_details.php">
+                <div class="sidebar--link">
+                    <i class="fa fa-building-o"></i>
+                    Registration Details
+                </div>
+            </a>
+            <div class="sidebar--link ">
+                <i class="fa fa-wrench"></i>
+                <a href="">Payment</a>
+            </div>
+            <div class="sidebar--link active">
+                <i class="fa fa-archive"></i>
+                <a href="payment_status.php">Payment Status</a>
+            </div>
+            <div class="sidebar--link">
+                <i class="fa fa-handshake-o"></i>
+                <a href="renew_status.php">Renew Status</a>
+            </div>
+            <h2>Update</h2>
+            <div class="sidebar--link">
+                <i class="fa fa-sign-out"></i>
+                <a href="update_renew_status.php">Update Renew Status</a>
+            </div>
+            <div class="sidebar--logout">
+                <i class="fa fa-power-off"></i>
+                <a href="logout.php">Log out</a>
+            </div>
+        </div>
     </div>
-  </div>
+
+
 </div>
 <footer id="footer">
-  <p>&copyright All rights reserved</p>
+    <p>&copyright All rights reserved</p>
 </footer>
 <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
 <script src="js/script.js"></script>
