@@ -18,11 +18,9 @@ require "../connection.php";
 //    header("Location: ../AcessDenied.php");
 //    return;
 //}
-$sql2 = "SELECT * from users";
+$sql2 = "SELECT * from users WHERE  role=3";
 $data = $conn->query($sql2);
 $rows = $data->fetchALL(PDO::FETCH_ASSOC)
-
-
 ?>
 
 
@@ -132,52 +130,6 @@ $rows = $data->fetchALL(PDO::FETCH_ASSOC)
                     <span class="navbar-toggler-icon icon-bar"></span>
                     <span class="navbar-toggler-icon icon-bar"></span>
                 </button>
-                <div class="collapse navbar-collapse justify-content-end">
-                    <form class="navbar-form">
-                        <div class="input-group no-border">
-                            <input type="text" value="" class="form-control" placeholder="Search...">
-                            <button type="submit" class="btn btn-white btn-round btn-just-icon">
-                                <i class="material-icons">search</i>
-                                <div class="ripple-container"></div>
-                            </button>
-                        </div>
-                    </form>
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="javascript:;">
-                                <i class="material-icons">dashboard</i>
-                                <p class="d-lg-none d-md-block">
-                                    Stats
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink"
-                               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="material-icons">notifications</i>
-                                <span class="notification">5</span>
-                                <p class="d-lg-none d-md-block">
-                                    Some Actions
-                                </p>
-                            </a>
-                        </li>
-                        <li class="nav-item dropdown">
-                            <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown"
-                               aria-haspopup="true" aria-expanded="false">
-                                <i class="material-icons">person</i>
-                                <p class="d-lg-none d-md-block">
-                                    Account
-                                </p>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProfile">
-                                <a class="dropdown-item" href="#">Profile</a>
-                                <a class="dropdown-item" href="#">Settings</a>
-                                <div class="dropdown-divider"></div>
-                                <a class="dropdown-item" href="../logout.php">Log out</a>
-                            </div>
-                        </li>
-                    </ul>
-                </div>
             </div>
         </nav>
         <!-- End Navbar -->
@@ -187,7 +139,7 @@ $rows = $data->fetchALL(PDO::FETCH_ASSOC)
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header card-header-primary">
-                                <h4 class="card-title ">Repair Shop List</h4>
+                                <h4 class="card-title ">All Parents List</h4>
                                 <p class="card-category"> Cautions: Maintain secracy </p>
                             </div>
                             <div class="card-body">

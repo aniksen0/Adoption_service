@@ -26,8 +26,8 @@ $rows = $data->fetchALL(PDO::FETCH_ASSOC);
     <br>
     <br>
     <div class="col col-sm-12 alert alert-danger"> Profile of <?php $rows[0]['name'] ?> <a class="float-right"
-                                                                                              style="text-decoration: none; background-color: indianred;color: #9fcdff"
-                                                                                              href="logout.php">
+                                                                                           style="text-decoration: none; background-color: indianred;color: #9fcdff"
+                                                                                           href="logout.php">
             <button style="background-color: indianred" id="btn btn-alert" type="submit"> Log-Out</button>
         </a></div>
     <div class=" col-sm-4">
@@ -57,23 +57,23 @@ $rows = $data->fetchALL(PDO::FETCH_ASSOC);
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                         <h6>Total Adopted</h6>
-                        <span class="text-secondary"><?php echo "0"?></span>
+                        <span class="text-secondary"><?php echo "0" ?></span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                        <h6>Father Name</h6>
-                        <span class="text-secondary"><?php echo $rows[''] ?></span>
+                        <h6> Email</h6>
+                        <span class="text-secondary"><?php echo $rows[0]['email'] ?></span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                        <h6>Mother Name</h6>
-                        <span class="text-secondary"><?= $emp_info['emp_motherName'] ?></span>
+                        <h6>Marital Status</h6>
+                        <span class="text-secondary"><?php echo $rows[0]['marital_status'] ?></span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                        <h6>Working Hour </h6>
-                        <span class="text-secondary"><?= $emp_info['emp_blood_group'] ?></span>
+                        <h6>gender </h6>
+                        <span class="text-secondary"><?php echo $rows[0]['gender'] ?></span>
                     </li>
                     <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                        <h6>Over Time</h6>
-                        <span class="text-secondary"><?= $emp_info['emp_over_time'] ?></span>
+                        <h6></h6>
+                        <span class="text-secondary"><?php echo $rows[0]['dob'] ?></span>
                     </li>
                 </ul>
             </div>
@@ -86,34 +86,34 @@ $rows = $data->fetchALL(PDO::FETCH_ASSOC);
                             <h6 class="mb-0">Full Name</h6>
                         </div>
                         <div class="col-sm-9 text-secondary">
-                            <?= $emp_info['emp_name'] ?>
+                            <?php echo $rows[0]["name"] ?>
                         </div>
                     </div>
                     <hr>
                     <div class="row">
                         <div class="col-sm-3">
-                            <h6 class="mb-0">Email</h6>
+                            <h6 class="mb-0">Profile Created</h6>
                         </div>
                         <div class="col-sm-9 text-secondary">
-                            <?= $emp_info['emp_email'] ?>
+                            <?php echo $rows[0]["created_at"] ?>
                         </div>
                     </div>
                     <hr>
                     <div class="row">
                         <div class="col-sm-3">
-                            <h6 class="mb-0">Phone</h6>
+                            <h6 class="mb-0">service status</h6>
                         </div>
                         <div class="col-sm-9 text-secondary">
-                            +880- <?= $emp_info['emp_contact_number'] ?>
+                            <?php echo $rows[0]['service_status'] ?>
                         </div>
                     </div>
                     <hr>
                     <div class="row">
                         <div class="col-sm-3">
-                            <h6 class="mb-0">emergency Number</h6>
+                            <h6 class="mb-0">Last Renewed</h6>
                         </div>
                         <div class="col-sm-9 text-secondary">
-                            +880- <?= $emp_info['emp_local_contact_number'] ?>
+                            +880- <?php echo $rows[0]["last_renewed"] ?>
                         </div>
                     </div>
                     <hr>
@@ -122,97 +122,14 @@ $rows = $data->fetchALL(PDO::FETCH_ASSOC);
                             <h6 class="mb-0">Local-Address</h6>
                         </div>
                         <div class="col-sm-9 text-secondary">
-                            <?= $emp_info['emp_local_address'] ?>
+                            <?php echo $rows[0]['permanent_address'] ?>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="row gutters-sm">
-                <div class="col-sm-5 mb-3">
-                    <div class="card h-100">
-                        <div class="card-body">
-                            <h6>Employment Info:</h6>
-                            <div class="row">
-                                <div class="col-sm-5">
-                                    <h6 class="mb-0">Designation: </h6>
-                                </div>
-                                <div class="col-sm-7 text-secondary">
-                                    <?= $emp_info['emp_designation'] ?>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-5">
-                                    <h6 class="mb-0">Branch: </h6>
-                                </div>
-                                <div class="col-sm-7 text-secondary">
-                                    <?= $emp_info['emp_branch'] ?>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-5">
-                                    <h6 class="mb-0">Department: </h6>
-                                </div>
-                                <div class="col-sm-7 text-secondary">
-                                    <?= $emp_info['emp_department'] ?>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-5">
-                                    <h6 class="mb-0">Joining Date: </h6>
-                                </div>
-                                <div class="col-sm-7 text-secondary">
-                                    <?= $emp_info['emp_joining_date'] ?>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-5">
-                                    <h6 class="mb-0">Agreement Date: </h6>
-                                </div>
-                                <div class="col-sm-7 text-secondary">
-                                    <?= $emp_info['emp_joining_date'] ?>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-5">
-                                    <h6 class="mb-0">Joining Date: </h6>
-                                </div>
-                                <div class="col-sm-7 text-secondary">
-                                    <?= $emp_info['emp_joining_date'] ?>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-5">
-                                    <h6 class="mb-0">Visa Status: </h6>
-                                </div>
-                                <div class="col-sm-7 text-secondary">
-                                    <?= $emp_info['emp_visa_status'] ?>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-5">
-                                    <h6 class="mb-0">Machine Code: </h6>
-                                </div>
-                                <div class="col-sm-7 text-secondary">
-                                    <span class="text-secondary"><?= $emp_info['emp_attendance_machine_code'] ?></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="card col-12 col-sm-5">
-                    <h5>Salary Info:</h5>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
-                            <h6>Machine Code:</h6>
-                            <span class="text-secondary"><?= $emp_info['emp_attendance_machine_code'] ?></span>
-                        </li>
-                    </ul>
-                </div>
-
             </div>
         </div>
     </div>
+</div>
 </div>
 </div>
 </html>
