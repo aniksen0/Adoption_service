@@ -2,6 +2,7 @@
 
 require_once "connection.php";
 session_start();
+
 if(isset($_POST['pass']) == isset($_POST['pass2']))
 {
     if (isset($_POST['name'])&&isset($_POST['email'])&&isset($_POST['ca']))
@@ -10,7 +11,7 @@ if(isset($_POST['pass']) == isset($_POST['pass2']))
         $filename= $_FILES["file1"]["name"];
         $tempname= $_FILES["file1"]["tmp_name"];
         $filenamenew=$filename;
-        move_uploaded_file($tempname,$filenamenew);
+        move_uploaded_file($tempname,$folder.$filenamenew);
 
         $id_sql = "SELECT id FROM users WHERE id=(SELECT max(id) FROM users);";
         $data = $conn->query($id_sql);
@@ -285,7 +286,7 @@ else
                     <div class="control-group">
                         <!-- Button -->
                         <div class="controls">
-                            <button class="btn btn-success">Register</button>
+                            <button name="btn" class="btn btn-success">Register</button>
                             <br>
                             <p></p>
                         </div>

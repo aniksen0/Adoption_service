@@ -162,6 +162,10 @@ $rows = $data->fetchALL(PDO::FETCH_ASSOC);
                 <i class="fa fa-archive"></i>
                 <a href="payment_status.php">Payment Status</a>
             </div>
+            <div class="sidebar--link active">
+                <i class="fa fa-archive"></i>
+                <a href="adoption_status.php">Adoption Status</a>
+            </div>
             <div class="sidebar--link">
                 <i class="fa fa-handshake-o"></i>
                 <a href="renew_status.php">Renew Status</a>
