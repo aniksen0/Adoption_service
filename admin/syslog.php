@@ -21,7 +21,7 @@ require "../connection.php";
 $from=date("Y-m-d 00:00:00");
 $to=date("Y-m-d 23:00:00");
 echo $to;
-$logquery="SELECT * FROM system_log WHERE time BETWEEN '$from' AND '$to'";
+$logquery="SELECT * FROM syslog WHERE time BETWEEN '$from' AND '$to'";
 $logdata=$conn->query($logquery);
 $rows=$logdata->fetchAll(PDO::FETCH_ASSOC);
 
@@ -59,20 +59,20 @@ $rows=$logdata->fetchAll(PDO::FETCH_ASSOC);
             <ul class="nav">
                 <li class="nav-item active  ">
                     <a class="nav-link" href="index.php">
-                        <i class="material-icons">System</i>
+                        <i class="material-icons">dashboard</i>
                         <p>Dashboard</p>
                     </a>
                 </li>
                 <li class="nav-item ">
                     <a class="nav-link" href="add_admin.php">
                         <i class="material-icons">person</i>
-                        <p>Add Shop Owner</p>
+                        <p>Add User</p>
                     </a>
                 </li>
                 <li class="nav-item ">
                     <a class="nav-link" href="tables.php">
                         <i class="material-icons">content_paste</i>
-                        <p>Shop List</p>
+                        <p>User List</p>
                     </a>
                 </li>
                 <li class="nav-item ">
@@ -88,9 +88,9 @@ $rows=$logdata->fetchAll(PDO::FETCH_ASSOC);
                     </a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link" href="category.php"">
+                    <a class="nav-link" href="child_profile.php"">
                     <i class="material-icons">library_books</i>
-                    <p>Category</p>
+                    <p>Add Child Profile</p>
                     </a>
                 </li>
                 <li class="nav-item ">
@@ -100,7 +100,7 @@ $rows=$logdata->fetchAll(PDO::FETCH_ASSOC);
                     </a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link" href="map.php">
+                    <a class="nav-link" href="profit.php">
                         <i class="material-icons">location_ons</i>
                         <p>Profit</p>
                     </a>

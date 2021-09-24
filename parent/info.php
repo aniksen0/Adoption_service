@@ -9,7 +9,7 @@ $user_data = $data->fetchALL(PDO::FETCH_ASSOC);
 
 if (isset($_POST['btn'])) {
     if (isset($_POST['name']) && isset($_POST['email']) && isset($_POST['ca'])) {
-        $folder = "parent/img/";
+        $folder = "img/";
         $filename = $_FILES["file1"]["name"];
         $tempname = $_FILES["file1"]["tmp_name"];
         $filenamenew = $filename;
@@ -36,8 +36,6 @@ if (isset($_POST['btn'])) {
         ));
         echo $sql;
         $_SESSION["success"]="Data Updated";
-        header("Location:info.php");
-
         header("Location:info.php");
         return;
     }
@@ -301,12 +299,12 @@ if (isset($_POST['btn'])) {
             </div>
             <div class="sidebar--link">
                 <i class="fa fa-handshake-o"></i>
-                <a href="renew_status.php">Renew Status</a>
+                <a href="renew_status.php">Search for adoption</a>
             </div>
             <h2>Update</h2>
             <div class="sidebar--link">
                 <i class="fa fa-sign-out"></i>
-                <a href="update_renew_status.php">Update Renew Status</a>
+                <a href="update_renew_status.php">Adoption Process</a>
             </div>
             <div class="sidebar--logout">
                 <i class="fa fa-power-off"></i>

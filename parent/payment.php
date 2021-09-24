@@ -4,7 +4,7 @@ session_start();
 $id = $_SESSION["id"];
 if (isset($_POST['btn']))
 {
-    $sql = "INSERT INTO payment (id, payment_process, payment_date , expiration_date , payment_for,	from1, payment_money) VALUES (:id, :payment_process, :payment_date , :expiration_date , :payment_for,	:from1, :payment_money)";
+    $sql = "INSERT INTO payment (id, payment_process, payment_date , expiration_date , payment_for,	from1, payment_money, status) VALUES (:id, :payment_process, :payment_date , :expiration_date , :payment_for,	:from1, :payment_money, :status)";
     $data = $conn->prepare($sql);
     $data->execute(array(
         ':id'=>$id,
@@ -14,6 +14,7 @@ if (isset($_POST['btn']))
         ':payment_for'=>$_POST['payment_for'],
         ':from1' => $_POST['from1'],
         ':payment_money' =>htmlentities($_POST['payment_money']),
+        ':status' =>"Not processed",
     ));
     $_SESSION['success'] = "Data Updated Successfully our Customer officer will connect with you soon";
     header("Location:payment.php");
@@ -161,12 +162,12 @@ if (isset($_POST['btn']))
             </div>
             <div class="sidebar--link">
                 <i class="fa fa-handshake-o"></i>
-                <a href="renew_status.php">Renew Status</a>
+                <a href="renew_status.php">Search for adoption</a>
             </div>
             <h2>Update</h2>
             <div class="sidebar--link">
                 <i class="fa fa-sign-out"></i>
-                <a href="update_renew_status.php">Update Renew Status</a>
+                <a href="update_renew_status.php">Adoption Process</a>
             </div>
             <div class="sidebar--logout">
                 <i class="fa fa-power-off"></i>

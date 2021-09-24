@@ -6,6 +6,17 @@ echo $_SESSION['id'];
 $user_data_sql = "SELECT * FROM account_information  WHERE user_id = $id";
 $data = $conn->query($user_data_sql);
 $user_data = $data->fetchALL(PDO::FETCH_ASSOC);
+
+$sql = "Select * from payment where id = $id";
+$data2 = $conn->query($sql);
+$all_payment = $data2->fetchAll(PDO::FETCH_ASSOC);
+//var_dump($all_payment)
+$taka = 0;
+foreach ($all_payment as $taka1)
+{
+    $taka += $taka1['payment_money'];
+}
+echo $taka;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,7 +37,33 @@ $user_data = $data->fetchALL(PDO::FETCH_ASSOC);
 <body id="body">
 <div class="container1 bg-light">
     <main>
-
+        <h1> Your Payment  Status </h1>
+        <table class="table">
+            <thead>
+            <th>Serial No</th>
+            <th>Payment Process</th>
+            <th>Payment Date</th>
+            <th>Expiration Date</th>
+            <th>Payment For</th>
+            <th>Amount</th>
+            <th>Payment For</th>
+            <th> status</th>
+            </thead>
+            <tbody>
+                <?php foreach ($all_payment as $payment) {?>
+                <tr>
+                    <td><?php echo $payment['sn']; ?></td>
+                    <td><?php echo $payment['payment_process']; ?></td>
+                    <td><?php echo $payment['payment_date']; ?></td>
+                    <td><?php echo $payment['expiration_date']; ?></td>
+                    <td><?php echo $payment['payment_for']; ?></td>
+                    <td><?php echo $payment['from1']; ?></td>
+                    <td><?php echo $payment['payment_money']; ?></td>
+                    <td><?php  if($payment['status'] =="active"){echo "Received";} else echo "Pending"; ?></td>
+                <?php }
+                ?>
+            </tbody>
+        </table>
     </main>
 
     <div id="sidebar">
@@ -70,18 +107,18 @@ $user_data = $data->fetchALL(PDO::FETCH_ASSOC);
                 <i class="fa fa-wrench"></i>
                 <a href="payment.php">Payment</a>
             </div>
-            <div class="sidebar--link active active_menu_link">
-                <i class="fa fa-archive"></i>
+            <div class="sidebar--link active_menu_link">
+                <i class="fa fa-archive "></i>
                 <a href="payment_status.php">Payment Status</a>
             </div>
             <div class="sidebar--link">
                 <i class="fa fa-handshake-o"></i>
-                <a href="renew_status.php">Renew Status</a>
+                <a href="renew_status.php">Search for adoption</a>
             </div>
             <h2>Update</h2>
             <div class="sidebar--link">
                 <i class="fa fa-sign-out"></i>
-                <a href="update_renew_status.php">Update Renew Status</a>
+                <a href="update_renew_status.php">Adoption Process</a>
             </div>
             <div class="sidebar--logout">
                 <i class="fa fa-power-off"></i>

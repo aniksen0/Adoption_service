@@ -1,11 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: anik
- * Date: 1/19/2021
- * Time: 1:16 PM
- *
- */
+
+
 function db()
 {
     if( require_once "../connection.php") {
@@ -73,13 +68,13 @@ function server($value,$port)
                 <li class="nav-item ">
                     <a class="nav-link" href="add_admin.php">
                         <i class="material-icons">person</i>
-                        <p>Add Shop Owner</p>
+                        <p>Add User</p>
                     </a>
                 </li>
                 <li class="nav-item ">
                     <a class="nav-link" href="tables.php">
                         <i class="material-icons">content_paste</i>
-                        <p>Shop List</p>
+                        <p>User List</p>
                     </a>
                 </li>
                 <li class="nav-item ">
@@ -95,9 +90,9 @@ function server($value,$port)
                     </a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link" href="category.php"">
+                    <a class="nav-link" href="child_profile.php"">
                     <i class="material-icons">library_books</i>
-                    <p>Category</p>
+                    <p>Add Child Profile</p>
                     </a>
                 </li>
                 <li class="nav-item ">

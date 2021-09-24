@@ -22,39 +22,33 @@ $id = $_SESSION["id"];
 <body id="body">
 <div class="container1 bg-light">
     <main>
-        <h1 style="padding-left: 50px" class="bg-info"> Match Maker </h1>
-        <div class="form-content form-inline row justify-content-between">
-            <form method="POST"  class="" style="padding-left: 50px">
-                <div class="row">
-                    <div class="form-group">
-                        <label class="control-label" for="age">Age</label>
-                        <div class="controls">
-                            <input type="text" id="age" name="age"
-                                   placeholder="" class="input-xlarge"
-                                   required>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label" for="color">Color</label>
-                        <div class="controls">
-                            <input type="text" id="color" name="color"
-                                   placeholder="" class="input-xlarge"
-                                   required>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label" for="age">Age</label>
-                        <div class="controls">
-                            <input type="text" id="age" name="age"
-                                   placeholder="" class="input-xlarge"
-                                   required>
-                        </div>
-                    </div>
-
-                </div>
-        </div>
-
-        </form>
+        <h1> Your Payment  Status </h1>
+        <table class="table">
+            <thead>
+            <th>Serial No</th>
+            <th>Payment Process</th>
+            <th>Payment Date</th>
+            <th>Expiration Date</th>
+            <th>Payment For</th>
+            <th>Amount</th>
+            <th>Payment For</th>
+            <th> status</th>
+            </thead>
+            <tbody>
+            <?php foreach ($all_payment as $payment) {?>
+            <tr>
+                <td><?php echo $payment['sn']; ?></td>
+                <td><?php echo $payment['payment_process']; ?></td>
+                <td><?php echo $payment['payment_date']; ?></td>
+                <td><?php echo $payment['expiration_date']; ?></td>
+                <td><?php echo $payment['payment_for']; ?></td>
+                <td><?php echo $payment['from1']; ?></td>
+                <td><?php echo $payment['payment_money']; ?></td>
+                <td><?php  if($payment['status'] =="active"){echo "Received";} else echo "Pending"; ?></td>
+                <?php }
+                ?>
+            </tbody>
+        </table>
     </main>
 
     <div id="sidebar">

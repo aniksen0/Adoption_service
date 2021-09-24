@@ -168,12 +168,12 @@ $rows = $data->fetchALL(PDO::FETCH_ASSOC);
             </div>
             <div class="sidebar--link">
                 <i class="fa fa-handshake-o"></i>
-                <a href="renew_status.php">Renew Status</a>
+                <a href="renew_status.php">Search for adoption</a>
             </div>
             <h2>Update</h2>
             <div class="sidebar--link">
                 <i class="fa fa-sign-out"></i>
-                <a href="update_renew_status.php">Update Renew Status</a>
+                <a href="update_renew_status.php">Adoption Process</a>
             </div>
             <div class="sidebar--logout">
                 <i class="fa fa-power-off"></i>
