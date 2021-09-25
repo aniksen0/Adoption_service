@@ -69,15 +69,18 @@ if (isset($_POST['btn'])) {
 <div class="container1 bg-light">
     <main>
         <h1 class="alert">Update Info</h1>
-        <span> <?php if (isset($_SESSION["error"])) {
-                echo $_SESSION['error'];
-                unset($_SESSION['error']);
-            } ?></span>
-
-        <span> <?php if (isset($_SESSION["success"])) {
-                echo $_SESSION['success'];
-                unset($_SESSION['success']);
-            } ?></span>
+        <?php if (isset($_SESSION["error"])) { ?>
+        <p class="justify-content-center align-content-center alert alert-warning text-center ">
+            <?php   echo $_SESSION['error'];
+                        unset($_SESSION['error']);
+            ?>
+            <?php } ?></p>
+        <?php if (isset($_SESSION["success"])) { ?>
+        <p class="justify-content-center align-content-center alert alert-success text-center">
+            <?php   echo $_SESSION['success'];
+                            unset($_SESSION['success']);
+            ?>
+            <?php } ?></p>
         <div class="container" style="padding-left: 50px">
             <div class="form-content form-inline row justify-content-between">
                 <form method="post" enctype="multipart/form-data">
@@ -266,10 +269,10 @@ if (isset($_POST['btn'])) {
                 aria-hidden="true"
             ></i>
         </div>
-        <p>Relief Section</p>
+        <p>Adoption Section</p>
         <div class="sidebar--menu">
             <a href="index.php">
-                <div class="sidebar--link">
+                <div class="sidebar--link ">
                     <i class="fa fa-home"></i>
                     Overview
                 </div>
@@ -277,34 +280,34 @@ if (isset($_POST['btn'])) {
 
             <h2>View</h2>
             <a href="info.php">
-                <div class="sidebar--link active_menu_link ">
+                <div class="sidebar--link active_menu_link">
                     <i class="fa fa-user-secret" aria-hidden="true"></i>
                     Update Info
                 </div>
             </a>
 
             <a href="registration_details.php">
-                <div class="sidebar--link">
+                <div class="sidebar--link ">
                     <i class="fa fa-building-o"></i>
                     Registration Details
                 </div>
             </a>
             <div class="sidebar--link ">
                 <i class="fa fa-wrench"></i>
-                <a href="">Payment</a>
+                <a href="payment.php">Payment</a>
             </div>
-            <div class="sidebar--link active">
-                <i class="fa fa-archive"></i>
+            <div class="sidebar--link ">
+                <i class="fa fa-archive "></i>
                 <a href="payment_status.php">Payment Status</a>
             </div>
             <div class="sidebar--link">
                 <i class="fa fa-handshake-o"></i>
-                <a href="renew_status.php">Search for adoption</a>
+                <a href="search_functions.php">Search for adoption</a>
             </div>
             <h2>Update</h2>
             <div class="sidebar--link">
                 <i class="fa fa-sign-out"></i>
-                <a href="update_renew_status.php">Adoption Process</a>
+                <a href="adoption_process.php">Adoption Process</a>
             </div>
             <div class="sidebar--logout">
                 <i class="fa fa-power-off"></i>

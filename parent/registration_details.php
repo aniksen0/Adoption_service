@@ -84,7 +84,7 @@ echo $taka;
                 aria-hidden="true"
             ></i>
         </div>
-        <p>Relief Section</p>
+        <p>Adoption Section</p>
         <div class="sidebar--menu">
             <a href="index.php">
                 <div class="sidebar--link">
@@ -111,18 +111,18 @@ echo $taka;
                 <i class="fa fa-wrench"></i>
                 <a href="payment.php">Payment</a>
             </div>
-            <div class="sidebar--link active">
-                <i class="fa fa-archive"></i>
+            <div class="sidebar--link ">
+                <i class="fa fa-archive "></i>
                 <a href="payment_status.php">Payment Status</a>
             </div>
             <div class="sidebar--link">
                 <i class="fa fa-handshake-o"></i>
-                <a href="renew_status.php">Search for adoption</a>
+                <a href="search_functions.php">Search for adoption</a>
             </div>
             <h2>Update</h2>
             <div class="sidebar--link">
                 <i class="fa fa-sign-out"></i>
-                <a href="update_renew_status.php">Adoption Process</a>
+                <a href="adoption_process.php">Adoption Process</a>
             </div>
             <div class="sidebar--logout">
                 <i class="fa fa-power-off"></i>

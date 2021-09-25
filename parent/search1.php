@@ -2,6 +2,7 @@
 require_once "../connection.php";
 session_start();
 $id = $_SESSION["id"];
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,95 +23,71 @@ $id = $_SESSION["id"];
 <body id="body">
 <div class="container1 bg-light">
     <main>
-        <h1> Your Payment  Status </h1>
-        <table class="table">
-            <thead>
-            <th>Serial No</th>
-            <th>Payment Process</th>
-            <th>Payment Date</th>
-            <th>Expiration Date</th>
-            <th>Payment For</th>
-            <th>Amount</th>
-            <th>Payment For</th>
-            <th> status</th>
-            </thead>
-            <tbody>
-            <?php foreach ($all_payment as $payment) {?>
-            <tr>
-                <td><?php echo $payment['sn']; ?></td>
-                <td><?php echo $payment['payment_process']; ?></td>
-                <td><?php echo $payment['payment_date']; ?></td>
-                <td><?php echo $payment['expiration_date']; ?></td>
-                <td><?php echo $payment['payment_for']; ?></td>
-                <td><?php echo $payment['from1']; ?></td>
-                <td><?php echo $payment['payment_money']; ?></td>
-                <td><?php  if($payment['status'] =="active"){echo "Received";} else echo "Pending"; ?></td>
-                <?php }
-                ?>
-            </tbody>
-        </table>
+        <h1 style="padding-left: 50px" class="bg-info">Search Children</h1>
+        
+
     </main>
 
-    <div id="sidebar">
-        <div class="sidebar--title">
-            <div class="sidebar--img">
-                <img src="img/img-01.png" alt="logo"/>
-                <h1>Parental Control</h1>
+<div id="sidebar">
+    <div class="sidebar--title">
+        <div class="sidebar--img">
+            <img src="img/img-01.png" alt="logo"/>
+            <h1>Parental Control</h1>
 
-            </div>
-            <i
-                onclick="closeSidebar()"
-                class="far fa-clock"
-                id="sidebarIcon"
-                aria-hidden="true"
-            ></i>
         </div>
-        <p>Relief Section</p>
-        <div class="sidebar--menu">
-            <a href="index.php">
-                <div class="sidebar--link">
-                    <i class="fa fa-home"></i>
-                    Overview
-                </div>
-            </a>
+        <i
+            onclick="closeSidebar()"
+            class="far fa-clock"
+            id="sidebarIcon"
+            aria-hidden="true"
+        ></i>
+    </div>
+    <p>Relief Section</p>
+    <div class="sidebar--menu">
+        <a href="index.php">
+            <div class="sidebar--link">
+                <i class="fa fa-home"></i>
+                Overview
+            </div>
+        </a>
 
-            <h2>View</h2>
-            <a href="info.php">
-                <div class="sidebar--link">
-                    <i class="fa fa-user-secret" aria-hidden="true"></i>
-                    Update Info
-                </div>
-            </a>
+        <h2>View</h2>
+        <a href="info.php">
+            <div class="sidebar--link">
+                <i class="fa fa-user-secret" aria-hidden="true"></i>
+                Update Info
+            </div>
+        </a>
 
-            <a href="registration_details.php">
-                <div class="sidebar--link ">
-                    <i class="fa fa-building-o"></i>
-                    Registration Details
-                </div>
-            </a>
+        <a href="registration_details.php">
             <div class="sidebar--link ">
-                <i class="fa fa-wrench"></i>
-                <a href="payment.php">Payment</a>
+                <i class="fa fa-building-o"></i>
+                Registration Details
             </div>
-            <div class="sidebar--link active_menu_link">
-                <i class="fa fa-archive "></i>
-                <a href="payment_status.php">Payment Status</a>
-            </div>
-            <div class="sidebar--link">
-                <i class="fa fa-handshake-o"></i>
-                <a href="renew_status.php">Search for adoption</a>
-            </div>
-            <h2>Update</h2>
-            <div class="sidebar--link">
-                <i class="fa fa-sign-out"></i>
-                <a href="update_renew_status.php">Adoption Process</a>
-            </div>
-            <div class="sidebar--logout">
-                <i class="fa fa-power-off"></i>
-                <a href="logout.php">Log out</a>
-            </div>
+        </a>
+        <div class="sidebar--link ">
+            <i class="fa fa-wrench"></i>
+            <a href="payment.php">Payment</a>
+        </div>
+        <div class="sidebar--link ">
+            <i class="fa fa-archive "></i>
+            <a href="payment_status.php">Payment Status</a>
+        </div>
+        <div class="sidebar--link active_menu_link">
+            <i class="fa fa-handshake-o"></i>
+            <a href="renew_status.php">Search for adoption</a>
+        </div>
+        <h2>Update</h2>
+        <div class="sidebar--link">
+            <i class="fa fa-sign-out"></i>
+            <a href="adoption_process.php">Adoption Process</a>
+        </div>
+        <div class="sidebar--logout">
+            <i class="fa fa-power-off"></i>
+            <a href="logout.php">Log out</a>
         </div>
     </div>
+</div>
 
 
 </div>

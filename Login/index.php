@@ -53,6 +53,10 @@ if ( isset($_POST['id']) && isset($_POST['pass'])  ) {
 				header("Location:../parent/index.php");
 				return;
 			}
+			if ($_SESSION['role'] == 2) {
+				header("Location:../pre_admin/index.php");
+				return;
+			}
 		}
 	}
 }

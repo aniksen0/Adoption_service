@@ -2,6 +2,7 @@
 require_once "../connection.php";
 session_start();
 $id = $_SESSION["id"];
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,39 +23,9 @@ $id = $_SESSION["id"];
 <body id="body">
 <div class="container1 bg-light">
     <main>
-        <h1 style="padding-left: 50px" class="bg-info"> Match Maker </h1>
-        <div class="form-content form-inline row justify-content-between">
-            <form method="POST"  class="" style="padding-left: 50px">
-                <div class="row">
-                    <div class="form-group">
-                        <label class="control-label" for="age">Age</label>
-                        <div class="controls">
-                            <input type="text" id="age" name="age"
-                                   placeholder="" class="input-xlarge"
-                                   required>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label" for="color">Color</label>
-                        <div class="controls">
-                            <input type="text" id="color" name="color"
-                                   placeholder="" class="input-xlarge"
-                                   required>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label class="control-label" for="age">Age</label>
-                        <div class="controls">
-                            <input type="text" id="age" name="age"
-                                   placeholder="" class="input-xlarge"
-                                   required>
-                        </div>
-                    </div>
-
-                </div>
+        <h1 style="padding-left: 50px" class="bg-info">Search Children</h1>
         </div>
 
-        </form>
     </main>
 
     <div id="sidebar">
@@ -98,11 +69,11 @@ $id = $_SESSION["id"];
                 <i class="fa fa-wrench"></i>
                 <a href="payment.php">Payment</a>
             </div>
-            <div class="sidebar--link active_menu_link">
+            <div class="sidebar--link ">
                 <i class="fa fa-archive "></i>
                 <a href="payment_status.php">Payment Status</a>
             </div>
-            <div class="sidebar--link">
+            <div class="sidebar--link active_menu_link">
                 <i class="fa fa-handshake-o"></i>
                 <a href="renew_status.php">Search for adoption</a>
             </div>
