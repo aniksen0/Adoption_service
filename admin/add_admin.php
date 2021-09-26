@@ -17,47 +17,64 @@ session_start();
 //    return;
 //}
 
-if (isset($_POST['id'])&&isset($_POST['name'])&&isset($_POST['mobile']))
+if(isset($_POST['pass']) == isset($_POST['pass2']))
 {
-    if (is_numeric($_POST['mobile']))
+    if (isset($_POST['name'])&&isset($_POST['email'])&&isset($_POST['ca']))
     {
-        $folder= "img/";
+        $folder= "parent/img/";
         $filename= $_FILES["file1"]["name"];
         $tempname= $_FILES["file1"]["tmp_name"];
-        $filenamenew=$folder.$filename;
-        move_uploaded_file($tempname,$filenamenew);
+        $filenamenew=$filename;
+        move_uploaded_file($tempname,$folder.$filenamenew);
 
-        $salt = 'XyZzy12*_';
-        $pw = hash('md5', $salt . $_POST['password']);
-        $sql="Insert INTO shop_owner(id,shop_name,contract_number,shop_location_division,shop_location_jilla,shop_location_thana,total_repairman,image,email,pass,nid,city_corporation,shop_owner_name) VALUES (:id,:shopname,:mobile,:division,:jilla,:thana,:RM,:imgdata,:email,:password,:nid,:ccn,:name)";
+        $id_sql = "SELECT id FROM users WHERE id=(SELECT max(id) FROM users);";
+        $data = $conn->query($id_sql);
+        $rows = $data->fetchALL(PDO::FETCH_ASSOC);
+        $last_data = $rows[0]["id"];
+
+        $sql="Insert INTO users(id, name,email,contact_address,phone,marital_status,gender,profession,dob,children,nid,image,permanent_address,service_status,last_renewed,role) VALUES (:id,:name,:email,:contact_address,:phone,:marital_status,:gender,:profession,:dob,:children,:nid,:image,:permanent_address,:service_status,:last_renewed,:role)";
         $data=$conn->prepare($sql);
         $data->execute(array(
-            ':id'=>htmlentities($_POST['id']),
-            ':shopname'=>htmlentities($_POST['name']),
-            ':mobile'=>htmlentities($_POST['mobile']),
-            ':division'=>htmlentities($_POST['division']),
-            ':jilla'=>htmlentities($_POST['jilla']),
-            ':thana'=>htmlentities($_POST['thana']),
-            ':RM'=>htmlentities($_POST['RM']),
-            ':imgdata'=>htmlentities($filenamenew),
-            ':email'=>htmlentities($_POST['email']),
-            ':password'=>htmlentities($_POST['password']),
-            ':ccn'=>htmlentities($_POST['ccn']),
+
+            ':id'=>$last_data+1,
             ':name'=>htmlentities($_POST['name']),
-            ':nid'=>htmlentities($_POST['nid'])
+            ':email'=>htmlentities($_POST['email']),
+            ':contact_address'=>htmlentities($_POST['ca']),
+            ':phone'=>htmlentities($_POST['phone']),
+            ':marital_status'=>htmlentities($_POST['marital_status']),
+            ':gender'=>htmlentities($_POST['gender']),
+            ':profession'=>htmlentities($_POST['profession']),
+            ':dob'=>htmlentities($_POST['dob']),
+            ':children'=>htmlentities($_POST['children']),
+            ':nid'=>htmlentities($_POST['nid']),
+            ':image'=>htmlentities($filenamenew),
+            ':permanent_address'=>htmlentities($_POST['permanent_address']),
+            ':service_status'=>"new",
+            ':last_renewed'=>date("Y/m/d"),
+            ':role'=>3
+        ));
+//        newdata
+        $sql="Insert INTO login(id,pass) VALUES (:id,:pass)";
+        $data=$conn->prepare($sql);
+        $data->execute(array(
+            ':id'=>$last_data+1,
+            ':pass'=>htmlentities($_POST['pass'])
         ));
 
-        $_SESSION['success']="Inserted";
-        header("Location:user1.php");
-        return;
-    }
-    else
-    {
-        $_SESSION["error"]="There is a problem with data. Please add appropriate data";
-        header("Location:user1.php");
+        //session data
+        $_SESSION['new_id']=$last_data+1;
+        $_SESSION['new_name']=$_POST['name'];
+        header("Location:welcome.php");
         return;
     }
 }
+else
+{
+    $_SESSION["error"]="Password not matched";
+    header("Location:regitration.php");
+    return;
+}
+
 
 
 ?>
@@ -210,7 +227,7 @@ if (isset($_POST['id'])&&isset($_POST['name'])&&isset($_POST['mobile']))
                     <div class="col-md-8">
                         <div class="card">
                             <div class="card-header card-header-primary">
-                                <h4 class="card-title">Add Shop Owner</h4>
+                                <h4 class="card-title">Register New User</h4>
                                 <p class="card-category">
                                 <div class="main--title">
 
@@ -236,87 +253,179 @@ if (isset($_POST['id'])&&isset($_POST['name'])&&isset($_POST['mobile']))
                                 </p>
                             </div>
                             <div class="card-body">
-                                <form  class="" method="post" enctype="multipart/form-data">
-                                    <h1>Register</h1>
-                                    <p>GROUP POLICY AND ROLE.</p>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <div class="control-group">
+                                            <!-- Username -->
+                                            <label class="control-label" for="username">Name</label>
+                                            <div class="controls">
+                                                <input type="text" id="username" name="name" placeholder="" class="input-xlarge"
+                                                       required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="control-group">
+                                            <!-- Username -->
+                                            <label class="control-label" for="Email">Email</label>
+                                            <div class="controls">
+                                                <input type="text" id="Email" name="email" placeholder="Email" class="input-xlarge"
+                                                       required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="control-group">
+                                            <!-- Username -->
+                                            <label class="control-label" for="ContactAddress">Contact Address</label>
+                                            <div class="controls">
+                                    <textarea id="ContactAddress" name="ca" placeholder="Contact Address" class="input-xlarge"
+                                              required> </textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <div class="control-group">
+                                            <!-- Username -->
+                                            <label class="control-label" for="Phone">Phone</label>
+                                            <div class="controls">
+                                                <input type="text" id="Phone" name="phone" placeholder="Phone" class="input-xlarge"
+                                                       required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="control-group">
+                                            <!-- Username -->
+                                            <label class="control-label" for="marital_status">Marital Status</label>
+                                            <div class="controls">
+                                                <select name="marital_status" id="marital_status">
+                                                    <option value="">Select One</option>
+                                                    <option value="married">Married </option>
+                                                    <option value="Single">Single</option>
+                                                    <option value="Divorced">Divorced</option>
+                                                    <option value="Single Father">Single Father</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="control-group">
+                                            <!-- Username -->
+                                            <label class="control-label" for="gender">Gender</label>
+                                            <div class="controls">
+                                                <input type="radio" id="male" name="gender" value="M">
+                                                <label for="male">Male</label><br>
+                                                <input type="radio" id="Female" name="gender" value="F">
+                                                <label for="Female">Female</label><br>
+                                                <input type="radio" id="nb" name="gender" value="nb">
+                                                <label for="nb">Non-Binary</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="control-group">
+                                        <!-- Username -->
+                                        <label class="control-label" for="pass">Password</label>
+                                        <div class="controls">
+                                            <input type="text" id="pass" name="pass" placeholder="Password" class="input-xlarge"
+                                                   required>
+                                        </div>
+                                    </div>
                                     <hr>
-                                    <div class="form-row">
-
-                                        <div class="col-sm-4">
-                                            <label for="id"><b>ID:</b></label>
-                                            <input class="input form-control" type="text" size="20" maxlength="10" placeholder="Enter USER ID" name="id" id="id" required>
-                                        </div>
-
-                                        <div class="col-sm-4">
-                                            <label for="name" ><b>Name:</b></label>
-                                            <input class="input form-control" type="text" size="25" placeholder="Enter Name" name="name" id="name" required>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <label for="email" ><b>Email:</b></label>
-                                            <input class="input form-control" type="text" size="25" placeholder="Enter Email" name="email" id="email" required>
+                                    <p></p>
+                                    <div class="control-group">
+                                        <!-- Username -->
+                                        <label class="control-label" for="Phone">Confirm Password</label>
+                                        <div class="controls">
+                                            <input type="text" id="pass2" name="pass2" placeholder="Provide Password Again" class="input-xlarge"
+                                                   required>
                                         </div>
                                     </div>
-
-                                    <div class="col-sm-12">
-                                        <label for="shopname"><b>Shop Name:</b></label>
-                                        <input class="input form-control" type="text" size="25" placeholder="Enter shop name" name="password" id="shopname" required>
-                                    </div>
-
-                                    <div class="col-sm-12">
-                                        <hr>
-                                        <label for="file">Owner Image</label>
-                                        <input type="file" id="file" name="file1" value="">
-                                        <p style="color: indianred;">File size should be less than 1MB</p>
-                                        <hr>
-                                    </div>
-                                    <div class="form-row">
-
-                                        <div class="col-sm-4">
-                                            <label for="psw"><b>Password:</b></label>
-                                            <input class="input form-control" type="password" size="25" placeholder="Enter one time Password" name="password" id="psw" required>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <label for="mobile" ><b>Mobile:</b></label>
-                                            <input class="input form-control" type="text" size="25" placeholder="EG:017********" name="mobile" id="mobile" required>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <label for="nid" ><b>NID:</b></label>
-                                            <input class="input form-control" type="text" size="25" placeholder="NID" name="nid" id="nid" required>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <div class="control-group">
+                                            <!-- Username -->
+                                            <label class="control-label" for="username">Profession</label>
+                                            <div class="controls">
+                                                <input type="text" id="Profession" name="profession" placeholder="Profession" class="input-xlarge"
+                                                       required>
+                                            </div>
                                         </div>
                                     </div>
-                                    <br>
-                                    <div class="form-row">
-
-                                        <div class="col-sm-4">
-                                            <label for="division"><b></b></label>
-                                            <input class="input form-control" type="text" size="25" placeholder="Enter Division" name="division" id="division" required>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <label for="jilla"><b></b></label>
-                                            <input class="input form-control" type="text" size="25" placeholder="Enter jilla" name="jilla" id="jilla" required>
-                                        </div>
-                                        <div class="col-sm-4">
-                                            <label for="thana"><b></b></label>
-                                            <input class="input form-control" type="text" size="25" placeholder="Enter thana" name="thana" id="thana" required>
+                                    <div class="col-4">
+                                        <div class="control-group">
+                                            <!-- Username -->
+                                            <label class="control-label" for="DOB">DOB</label>
+                                            <div class="controls">
+                                                <input type="date" id="DOB" name="dob" placeholder="DOB" class="input-xlarge"
+                                                       required>
+                                            </div>
                                         </div>
                                     </div>
-
-                                    <br>
-                                    <div class="col-sm-6">
-                                        <label for="date"><b>Corporation Certificate Number:</b></label>
-                                        <input class="input form-control" type="number" size="25" placeholder="Enter Corporation certificate number" name="ccn" id="ccn" required>
-                                        <hr>
+                                    <div class="col-4">
+                                        <div class="control-group">
+                                            <!-- Username -->
+                                            <label class="control-label" for="children">Current Children(*if yes)</label>
+                                            <div class="controls">
+                                                <input type="number" id="children" name="children" placeholder="children" class="input-xlarge"
+                                                       required>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="col-sm-12">
-                                        <label for="RM"><b>total Repair Man:</b></label>
-                                        <input class="input form-control" type="text" placeholder="RepairMan Number" name="RM" id="RM" required>
+                                </div>
+                                <br>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-4">
+                                        <div class="control-group">
+                                            <!-- Username -->
+                                            <label class="control-label" for="NID">NID</label>
+                                            <div class="controls">
+                                                <input type="text" id="NID" name="nid" placeholder="NID" class="input-xlarge"
+                                                       required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="control-group">
+                                            <!-- Username -->
+                                            <label class="control-label" for="Image">Image::</label>
+                                            <span class="text-danger"> Not more than 1MB</span>
+                                            <div class="controls">
+                                                <input type="file" id="Image" name="file1">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-4">
+                                        <div class="control-group">
+                                            <!-- Username -->
+                                            <label class="control-label" for="pa">Permanent Address</label>
+                                            <div class="controls">
+                                    <textarea type="text" id="pa" name="permanent_address" placeholder="permanent_address" class="input-xlarge"
+                                              required> </textarea>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="control-group">
+                                    <!-- Button -->
+                                    <div class="controls">
+                                        <button name="btn" class="btn btn-success">Register</button>
                                         <br>
-                                        <hr>
+                                        <p></p>
                                     </div>
-                                    <p>Please provide all the information and follow <a href="#">Rules and Regulationsy</a>.</p>
-                                    <button type="submit" class=" btnreg btn btn-success">Register</button>
-                                    <hr>
+                                </div> 
                                 </form>
+                            </div>
                             </div>
                         </div>
                     </div>

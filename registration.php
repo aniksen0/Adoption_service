@@ -47,6 +47,22 @@ if(isset($_POST['pass']) == isset($_POST['pass2']))
             ':pass'=>htmlentities($_POST['pass'])
         ));
 
+        $log="Insert INTO syslog(action,time) VALUES (:action,:time)";
+        $log_data=$conn->prepare($log);
+        $log_data->execute(array(
+            ':action'=>" New account registered",
+            ':time'=> date("Y/m/d")
+
+        ));
+        $log="INSERT INTO account_information (user_id,account_status, payment_status,adoption_status,total_child_adopted) VALUES (:user_id, :account_status, :payment_status, :adoption_status, :total_child_adopted)";
+        $log_data=$conn->prepare($log);
+        $log_data->execute(array(
+            ':user_id' =>$last_data+1,
+            ':account_status' => 0,
+            ':payment_status' => 0,
+            ':adoption_status' => 0,
+            ':total_child_adopted' =>0,
+        ));
     //session data
         $_SESSION['new_id']=$last_data+1;
         $_SESSION['new_name']=$_POST['name'];

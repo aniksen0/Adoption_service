@@ -34,6 +34,15 @@ if (isset($_POST['btn'])) {
             ':last_renewed' => date("Y/m/d"),
             ':role' => 3
         ));
+
+        $log="Insert INTO syslog(action,time) VALUES (:action,:time)";
+        $log_data=$conn->prepare($log);
+        $log_data->execute(array(
+            ':action'=>"  Account Updated $id",
+            ':time'=> date("Y/m/d")
+
+        ));
+        
         echo $sql;
         $_SESSION["success"]="Data Updated";
         header("Location:info.php");

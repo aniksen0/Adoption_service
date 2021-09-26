@@ -2,7 +2,6 @@
 require_once "../connection.php";
 session_start();
 $id = $_SESSION["id"];
-echo $_SESSION['id'];
 $user_data_sql = "SELECT * FROM account_information  WHERE user_id = $id";
 $data = $conn->query($user_data_sql);
 $user_data = $data->fetchALL(PDO::FETCH_ASSOC);
@@ -16,7 +15,6 @@ foreach ($all_payment as $taka1)
 {
     $taka += $taka1['payment_money'];
 }
-echo $taka;
 ?>
 <!DOCTYPE html>
 <html lang="en">

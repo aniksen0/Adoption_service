@@ -199,7 +199,7 @@ if (isset($_POST['name']) && isset($_POST['dob'])) {
                                             <div class="col-sm-4">
                                                 <label for="name"><b>name:</b></label>
                                                 <input class="input form-control" type="text" size="20" maxlength="10"
-                                                       placeholder="Enter USER Name" name="name" id="name" required>
+                                                       placeholder="Enter Child Name" name="name" id="name" required>
                                             </div>
 
                                             <div class="col-sm-4">

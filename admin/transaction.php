@@ -36,6 +36,15 @@ if(isset($_POST['submit']))
         ":sn" => $_POST['sn'],
         ":status" => $status
     ));
+
+    $log="Insert INTO syslog( action,time) VALUES (:action,:time)";
+    $log_data=$conn->prepare($log);
+    $log_data->execute(array(
+        ':action'=> "transaction updated for sn =" .$_POST['sn'],
+        ':time'=> date("Y/m/d")
+
+    ));
+
     header("Location:transaction.php");
     return;
 }
@@ -108,9 +117,9 @@ if(isset($_POST['submit']))
                     </a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link" href="category.php"">
+                    <a class="nav-link" href="child_profile.php"">
                     <i class="material-icons">library_books</i>
-                    <p>Category</p>
+                    <p>Add Child Profile</p>
                     </a>
                 </li>
                 <li class="nav-item ">

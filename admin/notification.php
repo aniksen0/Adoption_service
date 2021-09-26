@@ -1,16 +1,16 @@
 <?php
 /**
  * Created by PhpStorm.
- * User: ANIK
- * Date: 1/8/2021
- * Time: 11:35 PM
+ * User: Anik
+ * Date: 1/18/2021
+ * Time: 11:36 PM
  */
 session_start();
 
 require "../connection.php";
 //if (!isset($_SESSION['role'])&&!isset($_SESSION['name']))
 //{
-//    header("Location: ../index.php");
+//    header("Location: ../Login_v1/login.php");
 //    return;
 //}
 //if ($_SESSION['role']!=4)
@@ -18,21 +18,12 @@ require "../connection.php";
 //    header("Location: ../AcessDenied.php");
 //    return;
 //}
-//echo $_SESSION['name'];
-//echo $_SESSION['role'];
-$_SESSION['active']="active";
-
-$storage="select table_schema, sum((data_length+index_length)/1024/1024) AS MB from information_schema.tables WHERE table_schema='repairshop'";
-$datastorage=$conn->query($storage);
-$store=$datastorage->fetch(PDO::FETCH_ASSOC);
-
-$emp="SELECT * from user";
-$data = $conn->query($emp);
-$number=$data->rowCount();
-
-$statusquery="SELECT user.id, user.name from user JOIN receipt where user.id=receipt.service_consumer";
-$store1=$conn->query($statusquery);
-$rows=$store1->fetchAll(PDO::FETCH_ASSOC);
+$from = date("Y/m/d");
+$to = date("Y/m/d");
+echo $to;
+$logquery = "SELECT * FROM blocked";
+$logdata = $conn->query($logquery);
+$rows = $logdata->fetchAll(PDO::FETCH_ASSOC);
 
 
 ?>
@@ -40,32 +31,28 @@ $rows=$store1->fetchAll(PDO::FETCH_ASSOC);
 <html lang="en">
 
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <link rel="apple-touch-icon" sizes="76x76" href="/img/apple-icon.png">
     <link rel="icon" type="image/png" href="/img/favicon.png">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
     <title>
         Admin Dashboard
     </title>
-    <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+    <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport'/>
     <!--     Fonts and icons     -->
-    <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+    <link rel="stylesheet" type="text/css"
+          href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
     <!-- CSS Files -->
-    <link href="css/material-dashboard.css?v=2.1.2" rel="stylesheet" />
+    <link href="css/material-dashboard.css?v=2.1.2" rel="stylesheet"/>
 
 </head>
 
 <body class="">
 <div class="wrapper ">
     <div class="sidebar" data-color="purple" data-background-color="white" data-image="/img/sidebar-1.jpg">
-        <!--
-          Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
 
-          Tip 2: you can also add an image using data-image tag
-      -->
         <div class="logo row justify-content-center">
-            <!--            <img class="img-fluid" width="100" height="80" src="../img/logo.svg" alt="Site logo"/>-->
             <p class="align-items-center" style="color: indianred">Admin Panel</p>
         </div>
         <div class="sidebar-wrapper">
@@ -79,13 +66,13 @@ $rows=$store1->fetchAll(PDO::FETCH_ASSOC);
                 <li class="nav-item ">
                     <a class="nav-link" href="add_admin.php">
                         <i class="material-icons">person</i>
-                        <p>Add Shop Owner</p>
+                        <p>Add User</p>
                     </a>
                 </li>
                 <li class="nav-item ">
                     <a class="nav-link" href="tables.php">
                         <i class="material-icons">content_paste</i>
-                        <p>Shop List</p>
+                        <p>User List</p>
                     </a>
                 </li>
                 <li class="nav-item ">
@@ -101,9 +88,9 @@ $rows=$store1->fetchAll(PDO::FETCH_ASSOC);
                     </a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link" href="category.php"">
+                    <a class="nav-link" href="child_profile.php"">
                     <i class="material-icons">library_books</i>
-                    <p>Category</p>
+                    <p>Add Child Profile</p>
                     </a>
                 </li>
                 <li class="nav-item ">
@@ -113,7 +100,7 @@ $rows=$store1->fetchAll(PDO::FETCH_ASSOC);
                     </a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link" href="map.php">
+                    <a class="nav-link" href="profit.php">
                         <i class="material-icons">location_ons</i>
                         <p>Profit</p>
                     </a>
@@ -134,7 +121,8 @@ $rows=$store1->fetchAll(PDO::FETCH_ASSOC);
                 <div class="navbar-wrapper">
                     <a class="navbar-brand" href="javascript:;">Dashboard</a>
                 </div>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
+                        aria-expanded="false" aria-label="Toggle navigation">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="navbar-toggler-icon icon-bar"></span>
                     <span class="navbar-toggler-icon icon-bar"></span>
@@ -161,7 +149,8 @@ $rows=$store1->fetchAll(PDO::FETCH_ASSOC);
                         </li>
 
                         <li class="nav-item dropdown">
-                            <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <a class="nav-link" href="javascript:;" id="navbarDropdownProfile" data-toggle="dropdown"
+                               aria-haspopup="true" aria-expanded="false">
                                 <i class="material-icons">person</i>
                                 <p class="d-lg-none d-md-block">
                                     Account
@@ -179,8 +168,60 @@ $rows=$store1->fetchAll(PDO::FETCH_ASSOC);
             </div>
         </nav>
         <!-- End Navbar -->
-        <div class="content container">
-            <h1> COMMING SOON</h1>
+        <div class="content">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="card">
+                            <div class="card-header card-header-primary">
+                                <h4 class="card-title ">SYSTEM LOG FOR TODAY <?php echo date("Y-m-d") ?> </h4>
+                                <p class="card-category"> Cautions: Maintain secracy </p>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table">
+                                        <thead class=" text-primary">
+                                        <th>
+                                            Serial Number
+                                        </th>
+                                        <th>
+                                            Action
+                                        </th>
+                                        <th>
+                                            Time
+                                        </th>
+                                        <th>
+                                            Block Issue
+                                        </th>
+                                        </thead>
+                                        <tbody>
+                                        <?php
+                                        foreach ($rows as $row) {
+                                            ?>
+                                            <tr>
+                                                <td><?php echo $row['sl']; ?></td>
+                                                <td><?php echo $row['activity']; ?></td>
+                                                <td><?php echo $row['time']; ?> </td>
+                                                <td><?php echo $row['status']; ?> </td>
+
+                                                </td>
+                                            </tr>
+
+
+                                        <?php }
+                                        ?>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <footer id="footer">
+                        <p>&copyright All rights reserved</p>
+                    </footer>
+                </div>
+            </div>
         </div>
         <!--   Core JS Files   -->
         <script src="js/core/jquery.min.js"></script>
@@ -226,8 +267,8 @@ $rows=$store1->fetchAll(PDO::FETCH_ASSOC);
         <!-- Material Dashboard DEMO methods, don't include it in your project! -->
         <script src="demo/demo.js"></script>
         <script>
-            $(document).ready(function() {
-                $().ready(function() {
+            $(document).ready(function () {
+                $().ready(function () {
                     $sidebar = $('.sidebar');
 
                     $sidebar_img_container = $sidebar.find('.sidebar-background');
@@ -247,7 +288,7 @@ $rows=$store1->fetchAll(PDO::FETCH_ASSOC);
 
                     }
 
-                    $('.fixed-plugin a').click(function(event) {
+                    $('.fixed-plugin a').click(function (event) {
                         // Alex if we click on switch, stop propagation of the event, so the dropdown will not be hide, otherwise we set the  section active
                         if ($(this).hasClass('switch-trigger')) {
                             if (event.stopPropagation) {
@@ -258,7 +299,7 @@ $rows=$store1->fetchAll(PDO::FETCH_ASSOC);
                         }
                     });
 
-                    $('.fixed-plugin .active-color span').click(function() {
+                    $('.fixed-plugin .active-color span').click(function () {
                         $full_page_background = $('.full-page-background');
 
                         $(this).siblings().removeClass('active');
@@ -279,7 +320,7 @@ $rows=$store1->fetchAll(PDO::FETCH_ASSOC);
                         }
                     });
 
-                    $('.fixed-plugin .background-color .badge').click(function() {
+                    $('.fixed-plugin .background-color .badge').click(function () {
                         $(this).siblings().removeClass('active');
                         $(this).addClass('active');
 
@@ -290,7 +331,7 @@ $rows=$store1->fetchAll(PDO::FETCH_ASSOC);
                         }
                     });
 
-                    $('.fixed-plugin .img-holder').click(function() {
+                    $('.fixed-plugin .img-holder').click(function () {
                         $full_page_background = $('.full-page-background');
 
                         $(this).parent('li').siblings().removeClass('active');
@@ -300,7 +341,7 @@ $rows=$store1->fetchAll(PDO::FETCH_ASSOC);
                         var new_image = $(this).find("img").attr('src');
 
                         if ($sidebar_img_container.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
-                            $sidebar_img_container.fadeOut('fast', function() {
+                            $sidebar_img_container.fadeOut('fast', function () {
                                 $sidebar_img_container.css('background-image', 'url("' + new_image + '")');
                                 $sidebar_img_container.fadeIn('fast');
                             });
@@ -309,7 +350,7 @@ $rows=$store1->fetchAll(PDO::FETCH_ASSOC);
                         if ($full_page_background.length != 0 && $('.switch-sidebar-image input:checked').length != 0) {
                             var new_image_full_page = $('.fixed-plugin li.active .img-holder').find('img').data('src');
 
-                            $full_page_background.fadeOut('fast', function() {
+                            $full_page_background.fadeOut('fast', function () {
                                 $full_page_background.css('background-image', 'url("' + new_image_full_page + '")');
                                 $full_page_background.fadeIn('fast');
                             });
@@ -328,7 +369,7 @@ $rows=$store1->fetchAll(PDO::FETCH_ASSOC);
                         }
                     });
 
-                    $('.switch-sidebar-image input').change(function() {
+                    $('.switch-sidebar-image input').change(function () {
                         $full_page_background = $('.full-page-background');
 
                         $input = $(this);
@@ -360,7 +401,7 @@ $rows=$store1->fetchAll(PDO::FETCH_ASSOC);
                         }
                     });
 
-                    $('.switch-sidebar-mini input').change(function() {
+                    $('.switch-sidebar-mini input').change(function () {
                         $body = $('body');
 
                         $input = $(this);
@@ -375,7 +416,7 @@ $rows=$store1->fetchAll(PDO::FETCH_ASSOC);
 
                             $('.sidebar .sidebar-wrapper, .main-panel').perfectScrollbar('destroy');
 
-                            setTimeout(function() {
+                            setTimeout(function () {
                                 $('body').addClass('sidebar-mini');
 
                                 md.misc.sidebar_mini_active = true;
@@ -383,12 +424,12 @@ $rows=$store1->fetchAll(PDO::FETCH_ASSOC);
                         }
 
                         // we simulate the window Resize so the charts will get updated in realtime.
-                        var simulateWindowResize = setInterval(function() {
+                        var simulateWindowResize = setInterval(function () {
                             window.dispatchEvent(new Event('resize'));
                         }, 180);
 
                         // we stop the simulation of Window Resize after the animations are completed
-                        setTimeout(function() {
+                        setTimeout(function () {
                             clearInterval(simulateWindowResize);
                         }, 1000);
 
@@ -397,7 +438,7 @@ $rows=$store1->fetchAll(PDO::FETCH_ASSOC);
             });
         </script>
         <script>
-            $(document).ready(function() {
+            $(document).ready(function () {
                 // Javascript method's body can be found in assets/js/demos.js
                 md.initDashboardPageCharts();
 

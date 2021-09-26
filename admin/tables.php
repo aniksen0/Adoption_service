@@ -192,7 +192,7 @@ $rows = $data->fetchALL(PDO::FETCH_ASSOC)
                                                 <td><?php echo $row['profession']; ?></td>
                                                 <td><img src="<?php echo '../parent/img/'.$row['image']; ?>" height="100" width="100">
                                                 </td>
-                                                <td><a class="btn btn-info" href="edit.php?id='.$row['id'].'">Edit</a>
+                                                <td>
                                                     <a class="btn btn-danger"
                                                        href="delete.php?id='.$row['id'].'">Delete</a>
                                                     <a class="btn btn-info"

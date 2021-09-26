@@ -18,12 +18,33 @@ require "../connection.php";
 //    header("Location: ../AcessDenied.php");
 //    return;
 //}
-$from=date("Y-m-d 00:00:00");
-$to=date("Y-m-d 23:00:00");
+$from = date("Y/m/d");
+$to = date("Y/m/d");
 echo $to;
-$logquery="SELECT * FROM syslog WHERE time BETWEEN '$from' AND '$to'";
-$logdata=$conn->query($logquery);
-$rows=$logdata->fetchAll(PDO::FETCH_ASSOC);
+$logquery = "SELECT * FROM syslog WHERE time BETWEEN '$from' AND '$to'";
+$logdata = $conn->query($logquery);
+$rows = $logdata->fetchAll(PDO::FETCH_ASSOC);
+
+if (isset($_POST['block']))
+{
+    $sql = "INSERT INTO blocked (sl,activity,status) VALUES (:sl,:activity,:status)";
+    $data = $conn->prepare($sql);
+    $data->execute(array(
+        ':sl'=>htmlentities($_POST['sl']),
+        ':activity'=>htmlentities($_POST['action']),
+        ':status'=>"Blocked due to suspecious activity"
+    ));
+    $newsl=$_POST['sl'];
+
+    $sql2 = "UPDATE syslog SET status=:status WHERE sl= $newsl ";
+    $block = $conn->prepare($sql2);
+    $block->execute(array(
+        ':status'=>"block",
+    ));
+    header("Location:syslog.php");
+    return;
+
+}
 
 
 ?>
@@ -51,7 +72,7 @@ $rows=$logdata->fetchAll(PDO::FETCH_ASSOC);
 <body class="">
 <div class="wrapper ">
     <div class="sidebar" data-color="purple" data-background-color="white" data-image="/img/sidebar-1.jpg">
-       
+
         <div class="logo row justify-content-center">
             <p class="align-items-center" style="color: indianred">Admin Panel</p>
         </div>
@@ -174,7 +195,7 @@ $rows=$logdata->fetchAll(PDO::FETCH_ASSOC);
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header card-header-primary">
-                                <h4 class="card-title ">SYSTEM LOG FOR TODAY <?php echo date("Y-m-d")?> </h4>
+                                <h4 class="card-title ">SYSTEM LOG FOR TODAY <?php echo date("Y-m-d") ?> </h4>
                                 <p class="card-category"> Cautions: Maintain secracy </p>
                             </div>
                             <div class="card-body">
@@ -185,13 +206,7 @@ $rows=$logdata->fetchAll(PDO::FETCH_ASSOC);
                                             ID
                                         </th>
                                         <th>
-                                           Action Type
-                                        </th>
-                                        <th>
-                                            Action Description
-                                        </th>
-                                        <th>
-                                            Modifier
+                                            Action Type
                                         </th>
                                         <th>
                                             Time
@@ -205,17 +220,38 @@ $rows=$logdata->fetchAll(PDO::FETCH_ASSOC);
                                         foreach ($rows as $row) {
                                             ?>
                                             <tr>
-                                                <td><?php echo $row['id']; ?></td>
-                                                <td><?php echo $row['action_type']; ?></td>
-                                                <td><?php echo $row['action_desc']; ?></td>
-                                                <td><?php echo $row['admin_id']; ?> </td>
+                                                <td><?php echo $row['sl']; ?></td>
+                                                <td><?php echo $row['action']; ?></td>
                                                 <td><?php echo $row['time']; ?> </td>
 
                                                 </td>
-                                                <td>
-                                                    <a class="btn btn-danger"
-                                                       href="fullLog.php?id='.$row['id'].'">Full Log</a>
-                                                </td>
+
+                                                <form method="POST">
+                                                    <td>
+                                                        <input name="sl" hidden value="<?php echo $row['sl']; ?>">
+                                                        <input name="action" hidden value="<?php echo $row['action']; ?>">
+                                                        <button name="block"
+                                                        <?php
+                                                        if (($row['status'])=="block")
+                                                        {
+                                                            echo "disabled";
+                                                        }
+                                                       ?>
+                                                                class="btn btn-danger">
+
+                                                            <?php
+                                                            if (($row['status'])=="ok")
+                                                            {
+                                                                echo "Active";
+                                                            }
+                                                            else
+                                                            {
+                                                                echo "Suspecious";
+                                                            }
+                                                            ?></button>
+                                                    </td>
+                                                </form>
+
                                             </tr>
 
 

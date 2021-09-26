@@ -16,6 +16,19 @@ if (isset($_POST['btn']))
         ':payment_money' =>htmlentities($_POST['payment_money']),
         ':status' =>"Not processed",
     ));
+
+    $log="Insert INTO syslog( action,time) VALUES (:action,:time)";
+    $log_data=$conn->prepare($log);
+    $log_data->execute(array(
+        ':action'=> "Payment Done by Type:".$_POST['payment_for'].$_POST['payment_money']."ID = $id",
+        ':time'=> date("Y/m/d")
+
+    ));
+    $log="Update account_information SET payment_status = :payment_status";
+    $log_data=$conn->prepare($log);
+    $log_data->execute(array(
+            ':payment_status' =>htmlentities($_POST['payment_money'])
+    ));
     $_SESSION['success'] = "Data Updated Successfully our Customer officer will connect with you soon";
     header("Location:payment.php");
     return;
