@@ -21,28 +21,29 @@ require "../connection.php";
 $from = date("Y/m/d");
 $to = date("Y/m/d");
 echo $to;
-$logquery = "SELECT * FROM syslog WHERE time BETWEEN '$from' AND '$to'";
+$logquery = "SELECT * FROM parent_requirement";
 $logdata = $conn->query($logquery);
 $rows = $logdata->fetchAll(PDO::FETCH_ASSOC);
 
 if (isset($_POST['block']))
 {
-    $sql = "INSERT INTO blocked (sl,activity,status) VALUES (:sl,:activity,:status)";
+    $sn = $_POST['sn'];
+    $sql = "UPDATE parent_requirement SET status=:status WHERE sn= $sn";
     $data = $conn->prepare($sql);
     $data->execute(array(
-        ':sl'=>htmlentities($_POST['sl']),
-        ':activity'=>htmlentities($_POST['action']),
-        ':status'=>"Blocked due to suspecious activity"
+        ':status'=>"active",
     ));
-    $newsl=$_POST['sl'];
-
-    $sql2 = "UPDATE syslog SET status=:status WHERE sl= $newsl ";
+    $newsl=$_POST['sn'];
+    $sql2 = "Insert INTO syslog (action, time) VALUES(:action, :time)";
     $block = $conn->prepare($sql2);
     $block->execute(array(
-        ':status'=>"block",
+        ':action'=>"ID:".$sn."Adoption Accepted, Processing Started",
+        ':time'=> date("Y/m/d")
     ));
-    header("Location:syslog.php");
+
+    header("Location:adoption_request.php");
     return;
+
 
 }
 
@@ -78,58 +79,58 @@ if (isset($_POST['block']))
         </div>
         <div class="sidebar-wrapper">
             <ul class="nav">
-                <li class="nav-item active  ">
+                <li class="nav-item ">
                     <a class="nav-link" href="index.php">
-                        <i class="material-icons">dashboard</i>
+                        <i class="material-icons"></i>
                         <p>Dashboard</p>
                     </a>
                 </li>
-                <li class="nav-item ">
-                    <a class="nav-link" href="add_admin.php">
+                <li class="nav-item active ">
+                    <a class="nav-link" href="adoption_request.php">
                         <i class="material-icons">person</i>
-                        <p>Add User</p>
+                        <p>Adoption Request</p>
                     </a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link" href="tables.php">
+                    <a class="nav-link" href="adoption_form.php">
                         <i class="material-icons">content_paste</i>
-                        <p>User List</p>
+                        <p>Adoption Form</p>
                     </a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link" href="syslog.php"">
+                    <a class="nav-link" href="adoption_status.php"">
                     <i class="material-icons">library_books</i>
-                    <p>System Log</p>
-                    </a>
-                </li>
-                <li class="nav-item ">
-                    <a class="nav-link" href="transaction.php"">
-                    <i class="material-icons">library_books</i>
-                    <p>Transaction</p>
+                    <p>Adoption Status</p>
                     </a>
                 </li>
                 <li class="nav-item ">
                     <a class="nav-link" href="child_profile.php"">
                     <i class="material-icons">library_books</i>
-                    <p>Add Child Profile</p>
+                    <p>All Child Profile</p>
                     </a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link" href="syscheck.php">
+                    <a class="nav-link" href="court_order.php">
                         <i class="material-icons">bubble_chart</i>
-                        <p>System Check</p>
+                        <p>Court Order Upload</p>
                     </a>
                 </li>
                 <li class="nav-item ">
-                    <a class="nav-link" href="profit.php">
-                        <i class="material-icons">location_ons</i>
-                        <p>Profit</p>
+                    <a class="nav-link" href="adoption_details.php">
+                        <i class="material-icons">notifications</i>
+                        <p>Adoption Details</p>
                     </a>
                 </li>
                 <li class="nav-item ">
                     <a class="nav-link" href="notification.php">
                         <i class="material-icons">notifications</i>
-                        <p>Notifications</p>
+                        <p>Adoption Details</p>
+                    </a>
+                </li>
+                <li class="nav-item ">
+                    <a class="nav-link" href="logout.php">
+                        <i class="material-icons">Log Out</i>
+                        <p>Adoption Details</p>
                     </a>
                 </li>
             </ul>
@@ -195,7 +196,7 @@ if (isset($_POST['block']))
                     <div class="col-md-12">
                         <div class="card">
                             <div class="card-header card-header-primary">
-                                <h4 class="card-title ">SYSTEM LOG FOR TODAY <?php echo date("Y-m-d") ?> </h4>
+                                <h4 class="card-title ">Parental Permission Date:<?php echo date("Y-m-d") ?> </h4>
                                 <p class="card-category"> Cautions: Maintain secracy </p>
                             </div>
                             <div class="card-body">
@@ -203,36 +204,47 @@ if (isset($_POST['block']))
                                     <table class="table">
                                         <thead class=" text-primary">
                                         <th>
-                                            ID
+                                           Parent ID
                                         </th>
                                         <th>
-                                            Action Type
+                                            child_age_min
                                         </th>
                                         <th>
-                                            Time
+                                            child_age_max
                                         </th>
                                         <th>
-                                            Full Log
+                                            child_religion
+                                        </th> <th>
+                                            child_hair
+                                        </th><th>
+                                            child_height
                                         </th>
+                                        <th>
+                                            Parental Authority
+                                        </th>
+                                        <th> Status</th>
                                         </thead>
                                         <tbody>
                                         <?php
                                         foreach ($rows as $row) {
                                             ?>
                                             <tr>
-                                                <td><?php echo $row['sl']; ?></td>
-                                                <td><?php echo $row['action']; ?></td>
-                                                <td><?php echo $row['time']; ?> </td>
+                                                <td><?php echo $row['parent_id']; ?></td>
+                                                <td><?php echo $row['child_age_min']; ?></td>
+                                                <td><?php echo $row['child_age_max']; ?> </td>
+                                                <td><?php echo $row['child_religion']; ?> </td>
+                                                <td><?php echo $row['child_hair']; ?> </td>
+                                                <td><?php echo $row['child_height']; ?> </td>
+                                                <td><?php echo $row['child_parent_rights']; ?> </td>
 
                                                 </td>
 
                                                 <form method="POST">
                                                     <td>
-                                                        <input name="sl" hidden value="<?php echo $row['sl']; ?>">
-                                                        <input name="action" hidden value="<?php echo $row['action']; ?>">
+                                                        <input name="sn" hidden value="<?php echo $row['sn']; ?>">
                                                         <button name="block"
                                                             <?php
-                                                            if (($row['status'])=="block")
+                                                            if (($row['status'])=="active")
                                                             {
                                                                 echo "disabled";
                                                             }
@@ -240,13 +252,13 @@ if (isset($_POST['block']))
                                                                 class="btn btn-danger">
 
                                                             <?php
-                                                            if (($row['status'])=="ok")
+                                                            if (($row['status'])=="inactive")
                                                             {
-                                                                echo "Active";
+                                                                echo "ACCEPT";
                                                             }
                                                             else
                                                             {
-                                                                echo "Suspecious";
+                                                                echo "ACCEPTED";
                                                             }
                                                             ?></button>
                                                     </td>

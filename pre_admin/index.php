@@ -75,7 +75,7 @@ $onlinenaki = $onlineData->fetchAll(PDO::FETCH_ASSOC);
                 <li class="nav-item active">
                     <a class="nav-link" href="index.php">
                         <i class="material-icons"></i>
-                        <p> Pre admin Dashboard</p>
+                        <p>Dashboard</p>
                     </a>
                 </li>
                 <li class="nav-item ">
